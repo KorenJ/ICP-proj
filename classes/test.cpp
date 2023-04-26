@@ -6,16 +6,18 @@
 
 int main(){
     Maze *m = new Maze();
-    m->startReading(2,10);
-    m->processLine("X.........");
-    m->processLine("..........");
+    m->startReading(4,4);
+    m->processLine("....");
+    m->processLine(".XX.");
+    m->processLine("....");
+    m->processLine(".XX.");
     m->stopReading();
     Maze maze = m->createMaze();
 
-    Field f = maze.getField(1,2);
+    Field f = maze.getField(1,1);
     if (f.canMove())
         std::cout << "SUCCESS\n";
-    Field f1 = maze.getField(1,1);
+    Field f1 = maze.getField(2,2);
     if (!f1.canMove())
         std::cout << "SUCCESS\n";
 

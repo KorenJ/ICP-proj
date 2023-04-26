@@ -13,12 +13,18 @@
             this->cols = cols+2;
             this->current_row = 1;
 
-            this->field = new Field**[this->rows];
-            for (int i = 0; i < this->rows; ++i)
-                this->field[i] = new Field*[this->cols];
+            try{
+                this->field = new Field**[this->rows];
+                for (int i = 0; i < this->rows; ++i)
+                    this->field[i] = new Field*[this->cols];
 
-            for (int i = 0; i < this->cols; i++){
-                this->field[0][i] = new Field(0, i, *this);
+                for (int i = 0; i < this->cols; i++){
+                    this->field[0][i] = new Field(0, i, *this);
+                }
+            }
+            catch (std::exception& e){
+                std::cerr << "Chyba: " << e.what() << std::endl;
+                return false;
             }
 
             return true;            
@@ -33,19 +39,36 @@
             strcpy(parsed_line, line.c_str());
 
             this->field[this->current_row][0] = new Field(this->current_row, 0, *this);
-            this->field[this->current_row][0]->setPath();
 
             for (int i = 1; i < lenght+1; i++){
                 switch(parsed_line[i-1]){
+                    // prázdná cesta
                     case '.':
                         this->field[this->current_row][i] = new Field(this->current_row, i, *this);
                         this->field[this->current_row][i]->setPath();
                         break;
+                    // zeď
                     case 'X':
                         this->field[this->current_row][i] = new Field(this->current_row, i, *this);
                         break;
-                    default:
+                    // cesta s duchem
+                    case 'G':
+                        this->field[this->current_row][i] = new Field(this->current_row, i, *this);
+                        this->field[this->current_row][i]->setPath();
                         break;
+                    // cesta s pacmanem
+                    case 'S':
+                        this->field[this->current_row][i] = new Field(this->current_row, i, *this);
+                        this->field[this->current_row][i]->setPath();
+                        break;
+                    // cesta s cílem
+                    case 'T':
+                        this->field[this->current_row][i] = new Field(this->current_row, i, *this);
+                        this->field[this->current_row][i]->setPath();
+                        break;
+                    default:
+                        std::cerr << "Neznámé políčko\n";
+                        return false;
                 }
             }
 
