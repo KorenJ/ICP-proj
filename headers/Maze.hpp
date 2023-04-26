@@ -14,6 +14,10 @@
 
 class Maze{
     protected:
+        /**
+         * @brief Samotné bludiště je uloženo jako matice pointerů, na které se naváží konkrétní instance políček.
+         * 
+         */
         Field ***field;
         int rows;
         int cols;
