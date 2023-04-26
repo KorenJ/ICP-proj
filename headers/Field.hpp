@@ -32,7 +32,7 @@ class Field{
         bool put(MazeObject *object);
         bool remove(MazeObject *object);
         MazeObject* get();
-        Field nextField(Direction dir);
+        Field* nextField(Direction dir);
 };
 
 #endif

@@ -116,6 +116,6 @@ void Maze::clearMaze(){
     delete [] this->field;                
 }
 
-Field Maze::getField(int row, int col){
-    return *this->field[row][col];
+Field* Maze::getField(int row, int col){
+    return this->field[row][col];
 }

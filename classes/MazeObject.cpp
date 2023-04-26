@@ -45,16 +45,16 @@ void MazeObject::setTarget(){
 bool MazeObject::canMove(Direction dir){
     switch (dir){
         case Direction::D:
-            return (*this->maze).getField(this->row+1, this->col).canMove();
+            return (*this->maze).getField(this->row+1, this->col)->canMove();
             break;
         case Direction::L:
-            return (*this->maze).getField(this->row, this->col-1).canMove();
+            return (*this->maze).getField(this->row, this->col-1)->canMove();
             break;
         case Direction::R:
-            return (*this->maze).getField(this->row, this->col+1).canMove();
+            return (*this->maze).getField(this->row, this->col+1)->canMove();
             break;
         case Direction::U:
-            return (*this->maze).getField(this->row-1, this->col).canMove();
+            return (*this->maze).getField(this->row-1, this->col)->canMove();
             break;
         default:
             return false;
@@ -63,8 +63,8 @@ bool MazeObject::canMove(Direction dir){
 
 bool MazeObject::move(Direction dir){
     if (canMove(dir)){
-        (*this->maze).getField(this->row,this->col).nextField(dir).put(this);
-        (*this->maze).getField(this->row,this->col).remove(this);
+        (*this->maze).getField(this->row,this->col)->nextField(dir)->put(this);
+        (*this->maze).getField(this->row,this->col)->remove(this);
         switch (dir){
             case Direction::D:
                 this->row++;

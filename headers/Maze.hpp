@@ -63,7 +63,7 @@ class Maze{
          * @param col Pozice y políčka.
          * @return Vrátí instanci třídy políčko.
          */
-        Field getField(int row, int col);
+        Field* getField(int row, int col);
 };
 
 #endif

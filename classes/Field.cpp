@@ -76,7 +76,7 @@ MazeObject* Field::get(){
     return this->pacman;
 }
         
-Field Field::nextField(Direction dir){
+Field* Field::nextField(Direction dir){
     switch (dir){
         case Direction::D: return (*this->maze).getField(this->row+1, this->col);
         case Direction::R: return (*this->maze).getField(this->row, this->col+1);
