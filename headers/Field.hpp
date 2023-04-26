@@ -2,6 +2,12 @@
 #define FIELD_H
 
 class Field;
+enum class Direction{
+    D,
+    L,
+    R,
+    U,
+};
 
 #include "MazeObject.hpp"
 #include "Maze.hpp"
@@ -10,24 +16,23 @@ class Field{
     protected:
         int row;
         int col;
-        Maze maze;
+        Maze *maze;
         bool move;
-    public:
-        enum Direction{
-            D,
-            L,
-            R,
-            U,
-        };
 
-        Field(int row, int col, Maze maze);
+        MazeObject *pacman;
+        MazeObject *ghost;
+        MazeObject *key;
+        MazeObject *target;
+
+    public:
+        Field(int row, int col, Maze *maze);
         void setPath();
         bool canMove();
         bool isEmpty();
-        bool put();
-        bool remove();
+        bool put(MazeObject *object);
+        bool remove(MazeObject *object);
         MazeObject* get();
-        Field* nextField(Field::Direction dir);
+        Field nextField(Direction dir);
 };
 
 #endif
