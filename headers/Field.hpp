@@ -20,7 +20,7 @@ class Field{
             U,
         };
 
-        Field(int row, int col, Maze mate);
+        Field(int row, int col, Maze maze);
         void setPath();
         bool canMove();
         bool isEmpty();
