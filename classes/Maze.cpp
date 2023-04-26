@@ -64,8 +64,13 @@ bool Maze::processLine(std::string line){
                 this->field[this->current_row][i] = new Field(this->current_row, i, *this);
                 this->field[this->current_row][i]->setPath();
                 break;
+            // cesta s klíčem
+            case 'K':
+                this->field[this->current_row][i] = new Field(this->current_row, i, *this);
+                this->field[this->current_row][i]->setPath();
+                break;
             default:
-                std::cerr << "Neznámé políčko\n";
+                std::cerr << "Neznámé políčko na pozici [" << this->current_row << "," << i <<"]\n";
                 return false;
         }
     }

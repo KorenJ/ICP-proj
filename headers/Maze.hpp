@@ -10,7 +10,7 @@
 #include <string>
 #include <cstring>
 #include <iostream>
-#include "../headers/Field.hpp"
+#include "Field.hpp"
 
 class Maze{
     protected:
