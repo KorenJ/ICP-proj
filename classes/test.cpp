@@ -5,13 +5,10 @@
 #include "../headers/Maze.hpp"
 
 int main(){
-
-    std::cout << "Haha" << "\n";
-
     Maze *m = new Maze();
-    m->startReading(2,2);
-    m->processLine("X.");
-    m->processLine("..");
+    m->startReading(2,10);
+    m->processLine("X.........");
+    m->processLine("..........");
     m->stopReading();
     Maze maze = m->createMaze();
 
@@ -21,6 +18,8 @@ int main(){
     Field f1 = maze.getField(1,1);
     if (!f1.canMove())
         std::cout << "SUCCESS\n";
+
+    maze.clearMaze();
 
     return 0;
 }
