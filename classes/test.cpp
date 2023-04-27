@@ -91,6 +91,7 @@ int main(){
         }
     }
     maze.clearMaze();
+    delete m;
     file.close();
 
     return 0;
