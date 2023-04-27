@@ -23,7 +23,8 @@ void Field::setPath(){
 }
 
 bool Field::canMove(){
-    return this->move;
+    // na toto políčko se dá pohnout pouze, pokud je to cesta a zároveň tam nejsou už duch s pacmanem
+    return this->move && (this->ghost == nullptr || this->pacman == nullptr);
 }
 
 bool Field::isEmpty(){
