@@ -73,7 +73,15 @@ bool Field::remove(MazeObject *object){
 }
 
 MazeObject* Field::get(){
-    return this->pacman;
+    if (this->pacman != nullptr)
+        return this->pacman;
+    if (this->ghost != nullptr)
+        return this->ghost;
+    if (this->key != nullptr)
+        return this->key;
+    if (this->target != nullptr)
+        return this->target;
+    return nullptr;
 }
         
 Field* Field::nextField(Direction dir){
