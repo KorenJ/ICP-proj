@@ -22,6 +22,7 @@ class MazeObject{
         bool key;
         bool target;
         int lives;
+        bool ownsKey;
 
     public:
         MazeObject(int row, int col, Maze *maze);
@@ -93,6 +94,13 @@ class MazeObject{
          * 
          */
         int get_lives();
+
+        /**
+         * @brief Funkce zkontroluje vlastnictví klíče.
+         * 
+         * @return Vráci true, pokud má objekt (Pacman) klíč. Jinak false.
+         */
+        bool hasKey();
 };
 
 #endif

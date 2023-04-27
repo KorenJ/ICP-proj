@@ -9,6 +9,8 @@ MazeObject::MazeObject(int row, int col, Maze *maze){
     this->key = false;
     this->target = false;
     this->lives = 3;
+    this->ownsKey = false;
+    
 }
 
 bool MazeObject::isPacman(){
@@ -69,23 +71,46 @@ bool MazeObject::move(Direction dir){
         // tento blok se spustí jen pokud je v cílovém poli nějaký objekt
         if (!nextField->isEmpty()){
             MazeObject *nextObject = nextField->get();
-            // tento objekt je Pacman a v cíli je Ghost -> uber život a přesuň
+            // tento objekt je Pacman ...
             if (this->isPacman()){
+                //... a v cíli je Ghost -> uber život
                 if (nextObject->isGhost())
                     this->damage();
+                //... a v cíli je klíč -> zruš klíč a dej ho Pacmanovi
+                else if (nextObject->isKey()){
+                    this->ownsKey = true;
+                    nextField->remove(nextObject);
+                    // úklid v paměti
+                    delete nextObject;
+                }
+                //... a v cíli je cíl -> jestli nemáš klíč, nesmíš jít, jinak konec hry
+                else if (nextObject->isTarget()){
+                    if (this->hasKey()){
+                        std::cout << "KONEC HRY\n";
+                        nextField->remove(nextObject);
+                        // úklid v paměti
+                        delete nextObject;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+
             }
             // tento objekt je duch ...
             else if (this->isGhost()){
-                //... a v cíli je Pacman -> uber život a přesuň
+                //... a v cíli je Pacman -> uber život
                 if (nextObject->isPacman())
                     nextObject->damage();
-                //... a v cíli je další duch -> zůstaň stát
-                else if (nextObject->isGhost())
+                //... a v cíli je jiný objekt -> zůstaň stát (ukonči move() s false)
+                else
                     return false;
             }
         }
+        // přesun
         nextField->put(this);
         thisField->remove(this);
+        //přepsání souřadnic objektu
         switch (dir){
             case Direction::D:
                 this->row++;
@@ -111,4 +136,8 @@ void MazeObject::damage(){
 
 int MazeObject::get_lives(){
     return this->lives;
+}
+
+bool MazeObject::hasKey(){
+    return this->ownsKey;
 }
