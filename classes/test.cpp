@@ -79,6 +79,33 @@ int main(){
     if (!f->isEmpty())
         std::cout << "SUCCESS4.8 - PACMAN DIDN'T MOVE\n";
 
+    //duch a srážka
+    Field *ghostF = maze.getField(9,5);
+    MazeObject *ghost = ghostF->get();
+    if (ghost->isGhost())
+        std::cout << "SUCCESS 5.1 - OBJECT IS A GHOST\n";
+    if (ghost->move(Direction::L))
+        std::cout << "SUCCESS 5.2.1 - MOVING GHOST LEFT\n";
+    if (ghost->move(Direction::L))
+        std::cout << "SUCCESS 5.2.2 - MOVING GHOST LEFT\n";
+    ghostF = maze.getField(9,3);
+    if (!ghostF->isEmpty() && !f->isEmpty())
+        std::cout << "SUCCESS 5.3 - GHOST ON [9,3] (PACMAN ON [9,2])\n";
+    if (pacman->get_lives() == 3)
+        std::cout << "SUCCESS 5.4 - PACMAN STILL HAS 3 LIVES\n";
+    if (ghost->move(Direction::L))
+        std::cout << "SUCCESS 5.5 - MOVING GHOST LEFT TO PACMAN'S POSITION\n";
+    if (pacman->get_lives() == 2)
+        std::cout << "SUCCESS 5.6 - PACMAN IS DAMAGED\n";
+    if (ghost->move(Direction::L))
+        std::cout << "SUCCESS 5.7 - MOVING GHOST LEFT FROM PACMAN'S POSITION\n";
+    ghostF = maze.getField(9,1);
+    if (ghostF->get()->isGhost())
+        std::cout << "SUCCESS 5.8 - GHOST MOVED\n";
+    if (f->get()->isPacman())
+        std::cout << "SUCCESS 5.9 - PACMAN STAYED\n";
+
+
     //uklid
     for (int i = 1; i <= rows; i++){
         for (int j = 1; j <= cols; j++){
