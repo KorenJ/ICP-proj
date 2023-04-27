@@ -92,6 +92,9 @@ bool Maze::processLine(std::string line){
     }
     this->field[this->current_row][this->cols-1] = new Field(this->current_row, 0, this);
     this->current_row++;
+
+    delete parsed_line;
+
     return true;
 }
 
