@@ -21,6 +21,7 @@ class MazeObject{
         bool pacman;
         bool key;
         bool target;
+        int lives;
 
     public:
         MazeObject(int row, int col, Maze *maze);
@@ -82,6 +83,16 @@ class MazeObject{
          * @return Vrátí true po úspěšném přesunu. Jakýkoliv jiný případ vrátí false.
          */
         bool move(Direction dir);
+        /**
+         * @brief Ubere objektu (Musí být kontrola na Pacmana) jeden život.
+         * 
+         */
+        void damage();
+        /**
+         * @brief Vrátí počet životů objektu (musí být kontrola na Pacmana).
+         * 
+         */
+        int get_lives();
 };
 
 #endif

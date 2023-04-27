@@ -8,6 +8,7 @@ MazeObject::MazeObject(int row, int col, Maze *maze){
     this->pacman = false;
     this->key = false;
     this->target = false;
+    this->lives = 3;
 }
 
 bool MazeObject::isPacman(){
@@ -63,8 +64,28 @@ bool MazeObject::canMove(Direction dir){
 
 bool MazeObject::move(Direction dir){
     if (canMove(dir)){
-        (*this->maze).getField(this->row,this->col)->nextField(dir)->put(this);
-        (*this->maze).getField(this->row,this->col)->remove(this);
+        Field *nextField = (*this->maze).getField(this->row, this->col)->nextField(dir);
+        Field *thisField = (*this->maze).getField(this->row,this->col);
+        // tento blok se spustí jen pokud je v cílovém poli nějaký objekt
+        if (!nextField->isEmpty()){
+            MazeObject *nextObject = nextField->get();
+            // tento objekt je Pacman a v cíli je Ghost -> uber život a přesuň
+            if (this->isPacman()){
+                if (nextObject->isGhost())
+                    this->damage();
+            }
+            // tento objekt je duch ...
+            else if (this->isGhost()){
+                //... a v cíli je Pacman -> uber život a přesuň
+                if (nextObject->isPacman())
+                    nextObject->damage();
+                //... a v cíli je další duch -> zůstaň stát
+                else if (nextObject->isGhost())
+                    return false;
+            }
+        }
+        nextField->put(this);
+        thisField->remove(this);
         switch (dir){
             case Direction::D:
                 this->row++;
@@ -82,4 +103,12 @@ bool MazeObject::move(Direction dir){
         return true;
     }
     return false;
+}
+
+void MazeObject::damage(){
+    this->lives--;
+}
+
+int MazeObject::get_lives(){
+    return this->lives;
 }
