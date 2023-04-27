@@ -45,39 +45,39 @@ int main(){
 
     Field *f = maze.getField(1,1);
     if (f->canMove() && f->isEmpty())
-        std::cout << "SUCCESS1\n";
+        std::cout << "SUCCESS 1\n";
     f = maze.getField(0,0);
     if (!f->canMove())
-        std::cout << "SUCCESS2\n";
+        std::cout << "SUCCESS 2\n";
     
     //key
     f = maze.getField(1,10);
     if (!f->isEmpty() && f->canMove())
-        std::cout << "SUCCESS3\n";
+        std::cout << "SUCCESS 3\n";
 
     //pacman
     f = maze.getField(9,1);
     if (!f->isEmpty())
-        std::cout << "SUCCESS4.1 - OBJECT EXISTS\n";
+        std::cout << "SUCCESS 4.1 - OBJECT EXISTS\n";
     MazeObject *pacman = f->get();
     if (pacman->isPacman())
-        std::cout << "SUCCESS4.2 - OBJECT IS PACMAN\n";
+        std::cout << "SUCCESS 4.2 - OBJECT IS PACMAN\n";
     f = maze.getField(9,2);
     if (f->isEmpty() && f->canMove())
-        std::cout << "SUCCESS4.3 - TARGET FIELD IS EMPTY\n";
+        std::cout << "SUCCESS 4.3 - TARGET FIELD IS EMPTY\n";
     if (pacman->move(Direction::R))
-        std::cout << "SUCCESS4.4 - MOVING\n";
+        std::cout << "SUCCESS 4.4 - MOVING\n";
     if (!f->isEmpty())
-        std::cout << "SUCCESS4.5 - TARGET FIELD IS NOT EMPTY\n";
+        std::cout << "SUCCESS 4.5 - TARGET FIELD IS NOT EMPTY\n";
     else
-        std::cout << "FAIL4.5 - TARGET FIELD IS EMPTY\n";
+        std::cout << "FAIL 4.5 - TARGET FIELD IS EMPTY\n";
     Field *fOG = maze.getField(9,1);
     if (fOG->isEmpty())
-        std::cout << "SUCCESS4.6 - ORIGINAL FIELD EMPTY\n";
+        std::cout << "SUCCESS 4.6 - ORIGINAL FIELD EMPTY\n";
     if (!pacman->move(Direction::U))
-        std::cout << "SUCCESS4.7 - MOVING INTO WALL\n";
+        std::cout << "SUCCESS 4.7 - MOVING INTO WALL\n";
     if (!f->isEmpty())
-        std::cout << "SUCCESS4.8 - PACMAN DIDN'T MOVE\n";
+        std::cout << "SUCCESS 4.8 - PACMAN DIDN'T MOVE\n";
 
     //duch a srážka
     Field *ghostF = maze.getField(9,5);
@@ -105,6 +105,29 @@ int main(){
     if (f->get()->isPacman())
         std::cout << "SUCCESS 5.9 - PACMAN STAYED\n";
 
+    //mechanika klíče a brány
+    Field *pacmanField = maze.getField(9,9);
+    pacman = pacmanField->get();
+    Field *targetField = maze.getField(7,9);
+    Field *keyField = maze.getField(8,9);
+    if (targetField->get()->isTarget())
+        std::cout << "SUCCESS 6.1 - OBJECT IS TARGET\n";
+    if (keyField->get()->isKey())
+        std::cout << "SUCCESS 6.2 - OBJECT IS KEY\n";
+    if (pacman->move(Direction::U))
+        std::cout << "SUCCESS 6.3 - MOVING PACMAN UP\n";
+    if (keyField->get()->isPacman() && pacman->hasKey())
+        std::cout << "SUCCESS 6.4 - KEY TAKEN BY PACMAN\n";
+    pacman->move(Direction::L);
+    if (keyField->isEmpty())
+        std::cout << "SUCCESS 6.5 - KEY NO LONGER EXISTS\n";
+    pacman->move(Direction::R);
+        std::cout << "FOLLOWING MESSAGE SHOULD BE 'KONEC HRY':\n";
+    pacman->move(Direction::U);
+    pacmanField = maze.getField(6,9);
+    pacman = pacmanField->get();
+    if (!pacman->hasKey() && !pacman->move(Direction::D));
+        std::cout << "SUCCESS 6.6 - PACMAN DIDN'T MOVE TO TARGET WITHOUT A KEY\n";
 
     //uklid
     for (int i = 1; i <= rows; i++){
