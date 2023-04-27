@@ -67,7 +67,7 @@ class Field{
         /**
          * @brief Funkce získá objekt na políčku. Hledá je postupně v tomto pořadí: 1) Pacman 2) Duch 3) Klíč 4) Cíl.
          * 
-         * @return Vrací adresu prvního získaného objektu.
+         * @return Vrací adresu prvního získaného objektu. Pokud je pole prázdné, vrací nullptr(!).
          */
         MazeObject* get();
         /**
