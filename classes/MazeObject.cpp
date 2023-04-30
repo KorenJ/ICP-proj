@@ -10,7 +10,7 @@ MazeObject::MazeObject(int row, int col, Maze *maze){
     this->target = false;
     this->lives = 3;
     this->ownsKey = false;
-    
+
 }
 
 bool MazeObject::isPacman(){
@@ -47,20 +47,20 @@ void MazeObject::setTarget(){
 
 bool MazeObject::canMove(Direction dir){
     switch (dir){
-        case Direction::D:
-            return (*this->maze).getField(this->row+1, this->col)->canMove();
-            break;
-        case Direction::L:
-            return (*this->maze).getField(this->row, this->col-1)->canMove();
-            break;
-        case Direction::R:
-            return (*this->maze).getField(this->row, this->col+1)->canMove();
-            break;
-        case Direction::U:
-            return (*this->maze).getField(this->row-1, this->col)->canMove();
-            break;
-        default:
-            return false;
+    case Direction::D:
+        return (*this->maze).getField(this->row+1, this->col)->canMove();
+        break;
+    case Direction::L:
+        return (*this->maze).getField(this->row, this->col-1)->canMove();
+        break;
+    case Direction::R:
+        return (*this->maze).getField(this->row, this->col+1)->canMove();
+        break;
+    case Direction::U:
+        return (*this->maze).getField(this->row-1, this->col)->canMove();
+        break;
+    default:
+        return false;
     }
 }
 
@@ -112,18 +112,18 @@ bool MazeObject::move(Direction dir){
         thisField->remove(this);
         //přepsání souřadnic objektu
         switch (dir){
-            case Direction::D:
-                this->row++;
-                break;
-            case Direction::L:
-                this->col--;
-                break;
-            case Direction::R:
-                this->col++;
-                break;
-            case Direction::U:
-                this->row--;
-                break;
+        case Direction::D:
+            this->row++;
+            break;
+        case Direction::L:
+            this->col--;
+            break;
+        case Direction::R:
+            this->col++;
+            break;
+        case Direction::U:
+            this->row--;
+            break;
         }
         return true;
     }

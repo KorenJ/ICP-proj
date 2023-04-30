@@ -30,7 +30,7 @@ bool Field::canMove(){
 bool Field::isEmpty(){
     return (this->ghost == nullptr && this->pacman == nullptr && this->key == nullptr && this->target == nullptr);
 }
- 
+
 bool Field::put(MazeObject *object){
     if (this->canMove()){
         if (object->isPacman()){
@@ -48,7 +48,7 @@ bool Field::put(MazeObject *object){
         if (object->isTarget()){
             this->target = object;
             return true;
-        }        
+        }
     }
     return false;
 }
@@ -69,7 +69,7 @@ bool Field::remove(MazeObject *object){
     if (object->isTarget()){
         this->target = nullptr;
         return true;
-    } 
+    }
     return false;
 }
 
@@ -84,14 +84,14 @@ MazeObject* Field::get(){
         return this->target;
     return nullptr;
 }
-        
+
 Field* Field::nextField(Direction dir){
     switch (dir){
-        case Direction::D: return (*this->maze).getField(this->row+1, this->col);
-        case Direction::R: return (*this->maze).getField(this->row, this->col+1);
-        case Direction::L: return (*this->maze).getField(this->row, this->col-1);
-        case Direction::U: return (*this->maze).getField(this->row-1, this->col);
-        default:
-            throw "neexistující políčko";
+    case Direction::D: return (*this->maze).getField(this->row+1, this->col);
+    case Direction::R: return (*this->maze).getField(this->row, this->col+1);
+    case Direction::L: return (*this->maze).getField(this->row, this->col-1);
+    case Direction::U: return (*this->maze).getField(this->row-1, this->col);
+    default:
+        throw "neexistující políčko";
     }
 }

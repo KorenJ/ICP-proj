@@ -26,7 +26,7 @@ bool Maze::startReading(int rows, int cols){
         return false;
     }
 
-    return true;            
+    return true;
 }
 
 bool Maze::processLine(std::string line){
@@ -44,50 +44,50 @@ bool Maze::processLine(std::string line){
     this->field[this->current_row][0] = new Field(this->current_row, 0, this);
     for (int i = 1; i < lenght+1; i++){
         switch(parsed_line[i-1]){
-            // prázdná cesta
-            case '.':
-                this->field[this->current_row][i] = new Field(this->current_row, i, this);
-                this->field[this->current_row][i]->setPath();
-                break;
-            // zeď
-            case 'X':
-                this->field[this->current_row][i] = new Field(this->current_row, i, this);
-                break;
-            // cesta s duchem
-            case 'G':
-                this->field[this->current_row][i] = new Field(this->current_row, i, this);
-                this->field[this->current_row][i]->setPath();
-                ghost = new MazeObject(this->current_row, i, this);
-                ghost->setGhost();
-                this->field[this->current_row][i]->put(ghost);
-                break;
-            // cesta s pacmanem
-            case 'S':
-                this->field[this->current_row][i] = new Field(this->current_row, i, this);
-                this->field[this->current_row][i]->setPath();
-                pacman = new MazeObject(this->current_row, i, this);
-                pacman->setPacman();
-                this->field[this->current_row][i]->put(pacman);
-                break;
-            // cesta s cílem
-            case 'T':
-                this->field[this->current_row][i] = new Field(this->current_row, i, this);
-                this->field[this->current_row][i]->setPath();
-                target = new MazeObject(this->current_row, i, this);
-                target->setTarget();
-                this->field[this->current_row][i]->put(target);
-                break;
-            // cesta s klíčem
-            case 'K':
-                this->field[this->current_row][i] = new Field(this->current_row, i, this);
-                this->field[this->current_row][i]->setPath();
-                key = new MazeObject(this->current_row, i, this);
-                key->setKey();
-                this->field[this->current_row][i]->put(key);
-                break;
-            default:
-                std::cerr << "Neznámé políčko na pozici [" << this->current_row << "," << i <<"]\n";
-                return false;
+        // prázdná cesta
+        case '.':
+            this->field[this->current_row][i] = new Field(this->current_row, i, this);
+            this->field[this->current_row][i]->setPath();
+            break;
+        // zeď
+        case 'X':
+            this->field[this->current_row][i] = new Field(this->current_row, i, this);
+            break;
+        // cesta s duchem
+        case 'G':
+            this->field[this->current_row][i] = new Field(this->current_row, i, this);
+            this->field[this->current_row][i]->setPath();
+            ghost = new MazeObject(this->current_row, i, this);
+            ghost->setGhost();
+            this->field[this->current_row][i]->put(ghost);
+            break;
+        // cesta s pacmanem
+        case 'S':
+            this->field[this->current_row][i] = new Field(this->current_row, i, this);
+            this->field[this->current_row][i]->setPath();
+            pacman = new MazeObject(this->current_row, i, this);
+            pacman->setPacman();
+            this->field[this->current_row][i]->put(pacman);
+            break;
+        // cesta s cílem
+        case 'T':
+            this->field[this->current_row][i] = new Field(this->current_row, i, this);
+            this->field[this->current_row][i]->setPath();
+            target = new MazeObject(this->current_row, i, this);
+            target->setTarget();
+            this->field[this->current_row][i]->put(target);
+            break;
+        // cesta s klíčem
+        case 'K':
+            this->field[this->current_row][i] = new Field(this->current_row, i, this);
+            this->field[this->current_row][i]->setPath();
+            key = new MazeObject(this->current_row, i, this);
+            key->setKey();
+            this->field[this->current_row][i]->put(key);
+            break;
+        default:
+            std::cerr << "Neznámé políčko na pozici [" << this->current_row << "," << i <<"]\n";
+            return false;
         }
     }
     this->field[this->current_row][this->cols-1] = new Field(this->current_row, 0, this);
@@ -99,7 +99,7 @@ bool Maze::processLine(std::string line){
 }
 
 bool Maze::stopReading(){
-    for (int i = 0; i < this->cols; i++){            
+    for (int i = 0; i < this->cols; i++){
         this->field[this->rows-1][i] = new Field(this->rows-1, i, this);
     }
     return true;
@@ -116,7 +116,7 @@ void Maze::clearMaze(){
         }
         delete [] this->field[i];
     }
-    delete [] this->field;                
+    delete [] this->field;
 }
 
 Field* Maze::getField(int row, int col){
