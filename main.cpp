@@ -10,8 +10,11 @@
 #include "mainMenu.h"
 #include <QDebug>
 #include <QPushButton>
+#include "MazeButton.h"
 #include <QFile>
 #include <QMainWindow>
+
+
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +26,15 @@ int main(int argc, char *argv[])
     QGraphicsView view(&scene);
     window.setCentralWidget(&view);
 
+    QMainWindow window2;
+    QGraphicsScene scene2;
+    QGraphicsView view2(&scene2);
+    window2.setCentralWidget(&view2);
+
     //opening new maze, we can add a switch that picks specific maze depending on the players choice
+    /**
+     * @brief Reading Maze 1
+     */
     std::ifstream file;
     Maze *mazeFile = new Maze();
 
@@ -125,6 +136,8 @@ int main(int argc, char *argv[])
     mainMenu *menu = new mainMenu(&scene, &commonTimer, (rows+2)*50-20, 25);
     menu->startMenu();
 
+    MazeButton *mazeButton = new MazeButton(&scene, &commonTimer, (rows+2)*50-20, 100, &window, &window2);
+    mazeButton->startMenu();
 
     Grid grid(&maze);
     scene.addItem(&grid);
@@ -151,6 +164,11 @@ int main(int argc, char *argv[])
 
 
     window.show();
+
+    /**
+     * Maze 2
+     **/
+
 
     return a.exec();
 }

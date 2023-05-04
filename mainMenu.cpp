@@ -12,7 +12,6 @@
 #include "pacman.h"
 #include "ghost.h"
 #include "headers/Maze.hpp"
-#include "mainMenu.h"
 #include <QDebug>
 #include <QPushButton>
 #include <QFile>
