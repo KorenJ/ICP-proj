@@ -12,7 +12,7 @@ class Ghost : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    explicit Ghost(MazeObject* mazeObject, Maze* maze, QTimer *mainTimer, QObject *parent = nullptr);
+    explicit Ghost(MazeObject* mazeObject, Maze* maze, QTimer *mainTimer, int ghostOrder, QObject *parent = nullptr);
 
 public slots:
     void move();
@@ -24,6 +24,7 @@ private:
     Maze* m_maze;
     QTimer* m_timer;
     const int m_step = 50;
+    int seed;
 };
 
 #endif // GHOST_H

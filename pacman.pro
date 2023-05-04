@@ -17,6 +17,7 @@ SOURCES += \
     ghost.cpp \
     grid.cpp \
     main.cpp \
+    mainMenu.cpp \
     pacman.cpp\
 
 
@@ -26,6 +27,7 @@ HEADERS += \
     headers/Field.hpp \
     headers/Maze.hpp \
     headers/MazeObject.hpp \
+    mainMenu.h \
     pacman.h
 
 

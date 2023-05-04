@@ -14,14 +14,16 @@ class Pacman :public QObject, public QGraphicsItem //public MazeObject
 public:
     MazeObject *pacmanMove;
     Maze * m_maze;
-    Pacman(MazeObject *pacman, Maze *maze, QTimer *mainTimer, QGraphicsItem *parent = nullptr);
+    Pacman(MazeObject *pacman, Maze *maze, QTimer *mainTimer,  QGraphicsItem *parent = nullptr);
 
+    QWidget *m_parentWidget;
     int quitNext = 0;
     int rows = 0;
     int cols = 0;
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) override;
     void keyPressEvent(QKeyEvent *event) override;
+    bool sceneEventFilter(QGraphicsItem *watched, QEvent *event);
 public slots:
     void move();
 
@@ -33,9 +35,11 @@ private:
         Right,
     };
 
-
+    void paintPacman(MazeObject *pacman);
     const int m_step = 50;
     Direction lastDir = Direction::None;
+protected:
+
 };
 
 #endif // PACMAN_H

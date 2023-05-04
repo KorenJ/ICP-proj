@@ -10,7 +10,8 @@ MazeObject::MazeObject(int row, int col, Maze *maze){
     this->target = false;
     this->lives = 3;
     this->ownsKey = false;
-
+    this->startRow = row;
+    this->startCol = col;
 }
 
 bool MazeObject::isPacman(){
@@ -74,8 +75,15 @@ bool MazeObject::move(Direction dir){
             // tento objekt je Pacman ...
             if (this->isPacman()){
                 //... a v cíli je Ghost -> uber život
-                if (nextObject->isGhost())
+                if (nextObject->isGhost()){
                     this->damage();
+                    this->row = this->startRow;
+                    this->col = this->startCol;
+                    Field *start = this->maze->getField(row, col);
+                    start->put(this);
+                    thisField->remove(this);
+                    return true;
+                }
                 //... a v cíli je klíč -> zruš klíč a dej ho Pacmanovi
                 else if (nextObject->isKey()){
                     this->ownsKey = true;
@@ -100,8 +108,15 @@ bool MazeObject::move(Direction dir){
             // tento objekt je duch ...
             else if (this->isGhost()){
                 //... a v cíli je Pacman -> uber život
-                if (nextObject->isPacman())
+                if (nextObject->isPacman()){
                     nextObject->damage();
+                    nextObject->row = nextObject->startRow;
+                    nextObject->col = nextObject->startCol;
+                    Field *start = nextObject->maze->getField(row, col);
+                    start->put(this);
+                    nextField->remove(nextObject);
+                    return true;
+                }
                 //... a v cíli je jiný objekt -> zůstaň stát (ukonči move() s false)
                 else
                     return false;
@@ -140,4 +155,13 @@ int MazeObject::get_lives(){
 
 bool MazeObject::hasKey(){
     return this->ownsKey;
+}
+
+int MazeObject::getRows()
+{
+    return this->row;
+}
+int MazeObject::getCols()
+{
+    return this->col;
 }

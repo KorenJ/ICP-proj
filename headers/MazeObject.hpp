@@ -23,6 +23,8 @@ private:
     bool target;
     int lives;
     bool ownsKey;
+    int startRow;
+    int startCol;
 
 public:
     MazeObject(int row, int col, Maze *maze);
@@ -101,6 +103,10 @@ public:
          * @return Vráci true, pokud má objekt (Pacman) klíč. Jinak false.
          */
     bool hasKey();
+
+    int getRows();
+
+    int getCols();
 };
 
 #endif

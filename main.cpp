@@ -7,17 +7,26 @@
 #include "pacman.h"
 #include "ghost.h"
 #include "headers/Maze.hpp"
+#include "mainMenu.h"
 #include <QDebug>
+#include <QPushButton>
 #include <QFile>
+#include <QMainWindow>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
 
+
+    QApplication a(argc, argv);
+    QMainWindow window;
+    QGraphicsScene scene;
+    QGraphicsView view(&scene);
+    window.setCentralWidget(&view);
 
     //opening new maze, we can add a switch that picks specific maze depending on the players choice
     std::ifstream file;
     Maze *mazeFile = new Maze();
+
     file.open("save/map.txt");
     qDebug() << "Error opening file: " << file.rdstate();
     int rows;
@@ -50,7 +59,7 @@ int main(int argc, char *argv[])
     }
 
     QTimer commonTimer;
-    commonTimer.start(500);
+    commonTimer.stop();
 
     //initializing maze
     mazeFile->stopReading();
@@ -110,25 +119,29 @@ int main(int argc, char *argv[])
         }
     }
 
-    QGraphicsScene scene;
-    scene.setSceneRect(-50, -50, (rows+2)*50, (cols+2)*50);
+    scene.setSceneRect(-50, -50, (rows+2)*50+200, (cols+2)*50);
+
+
+    mainMenu *menu = new mainMenu(&scene, &commonTimer, (rows+2)*50-20, 25);
+    menu->startMenu();
+
 
     Grid grid(&maze);
     scene.addItem(&grid);
 
-    Ghost ghostClass1(ghost1, &maze, &commonTimer);
+    Ghost ghostClass1(ghost1, &maze, &commonTimer, 1);
     ghostClass1.setPos((ghost1PosC * 50) - 50, (ghost1PosR * 50) - 50);
     scene.addItem(&ghostClass1);
 
-    Ghost ghostClass2(ghost2, &maze, &commonTimer);
+    Ghost ghostClass2(ghost2, &maze, &commonTimer, 2);
     ghostClass2.setPos((ghost2PosC * 50) - 50, (ghost2PosR * 50) - 50);
     scene.addItem(&ghostClass2);
 
-    Ghost ghostClass3(ghost3, &maze, &commonTimer);
+    Ghost ghostClass3(ghost3, &maze, &commonTimer, 3);
     ghostClass3.setPos((ghost3PosC * 50) - 50, (ghost3PosR * 50) - 50);
     scene.addItem(&ghostClass3);
 
-    Ghost ghostClass4(ghost4, &maze, &commonTimer);
+    Ghost ghostClass4(ghost4, &maze, &commonTimer, 4);
     ghostClass4.setPos((ghost4PosC * 50) - 50, (ghost4PosR * 50) - 50);
     scene.addItem(&ghostClass4);
 
@@ -136,8 +149,8 @@ int main(int argc, char *argv[])
     pacman.setPos((setPosC * 50) - 50, (setPosR * 50) - 50);
     scene.addItem(&pacman);
 
-    QGraphicsView view(&scene);
-    view.show();
+
+    window.show();
 
     return a.exec();
 }
