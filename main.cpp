@@ -1,4 +1,3 @@
- 
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QApplication>
@@ -6,6 +5,7 @@
 #include <fstream>
 #include "grid.h"
 #include "pacman.h"
+#include "ghost.h"
 #include "headers/Maze.hpp"
 #include <QDebug>
 #include <QFile>
@@ -14,8 +14,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QGraphicsScene scene;
-    scene.setSceneRect(0, 0, 500, 500);
 
     //opening new maze, we can add a switch that picks specific maze depending on the players choice
     std::ifstream file;
@@ -51,36 +49,90 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    QTimer commonTimer;
+    commonTimer.start(500);
+
     //initializing maze
     mazeFile->stopReading();
     Maze maze = mazeFile->createMaze();
 
     //getting starting point of pacman
     MazeObject *pacmanTmp = nullptr;
-    int flag = 0;
+    MazeObject *iterator = nullptr;
+    MazeObject *ghost1 = nullptr;
+    MazeObject *ghost2 = nullptr;
+    MazeObject *ghost3 = nullptr;
+    MazeObject *ghost4 = nullptr;
+    int ghostCounter = 0;
     int setPosR = 0;
     int setPosC = 0;
+    int ghost1PosR = 0;
+    int ghost1PosC = 0;
+    int ghost2PosR = 0;
+    int ghost2PosC = 0;
+    int ghost3PosR = 0;
+    int ghost3PosC = 0;
+    int ghost4PosR = 0;
+    int ghost4PosC = 0;
     for(int r = 0; r < rows; r++){
         for(int c = 0; c < cols; c++){
-            if((pacmanTmp = maze.getField(r,c)->get())){
-                if(pacmanTmp->isPacman() == true){
-                    flag = 1;
+            if((iterator = maze.getField(r,c)->get())){
+                if(iterator->isPacman() == true){
+                    pacmanTmp = iterator;
                     setPosR = r;
                     setPosC = c;
                     break;
                 }
+                if(iterator->isGhost() == true){
+                    ghostCounter++;
+                    if(ghostCounter == 1){
+                        ghost1 = iterator;
+                        ghost1PosR = r;
+                        ghost1PosC = c;
+                    }
+                    else if(ghostCounter == 2){
+                        ghost2 = iterator;
+                        ghost2PosR = r;
+                        ghost2PosC = c;
+                    }
+                    else if(ghostCounter == 3){
+                        ghost3 = iterator;
+                        ghost3PosR = r;
+                        ghost3PosC = c;
+                    }
+                    else if(ghostCounter == 4){
+                        ghost4 = iterator;
+                        ghost4PosR = r;
+                        ghost4PosC = c;
+                    }
+                }
             }
         }
-        if(flag == 1){
-            break;
-        }
     }
+
+    QGraphicsScene scene;
+    scene.setSceneRect(-50, -50, (rows+2)*50, (cols+2)*50);
 
     Grid grid(&maze);
     scene.addItem(&grid);
 
+    Ghost ghostClass1(ghost1, &maze, &commonTimer);
+    ghostClass1.setPos((ghost1PosC * 50) - 50, (ghost1PosR * 50) - 50);
+    scene.addItem(&ghostClass1);
 
-    Pacman pacman(pacmanTmp, &maze);
+    Ghost ghostClass2(ghost2, &maze, &commonTimer);
+    ghostClass2.setPos((ghost2PosC * 50) - 50, (ghost2PosR * 50) - 50);
+    scene.addItem(&ghostClass2);
+
+    Ghost ghostClass3(ghost3, &maze, &commonTimer);
+    ghostClass3.setPos((ghost3PosC * 50) - 50, (ghost3PosR * 50) - 50);
+    scene.addItem(&ghostClass3);
+
+    Ghost ghostClass4(ghost4, &maze, &commonTimer);
+    ghostClass4.setPos((ghost4PosC * 50) - 50, (ghost4PosR * 50) - 50);
+    scene.addItem(&ghostClass4);
+
+    Pacman pacman(pacmanTmp, &maze, &commonTimer);
     pacman.setPos((setPosC * 50) - 50, (setPosR * 50) - 50);
     scene.addItem(&pacman);
 

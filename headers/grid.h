@@ -2,15 +2,11 @@
 #define GRID_H
 
 #include <QGraphicsItem>
-#include <headers/MazeObject.hpp>
 
 class Grid : public QGraphicsItem
 {
 public:
-    Grid(Maze *maze, QGraphicsItem *parent = nullptr);
-    Maze *mazeGrid;
-    int rows;
-    int cols;
+    Grid(QGraphicsItem *parent = nullptr);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

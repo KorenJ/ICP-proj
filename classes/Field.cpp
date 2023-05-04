@@ -95,3 +95,11 @@ Field* Field::nextField(Direction dir){
         throw "neexistující políčko";
     }
 }
+
+bool Field::getGhost()
+{
+    if(this->ghost != nullptr){
+        return true;
+    }
+    return false;
+}

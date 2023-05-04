@@ -14,6 +14,7 @@ enum class Direction{
     L,
     R,
     U,
+    None
 };
 
 #include "MazeObject.hpp"
@@ -77,6 +78,8 @@ public:
          * @return Vrátí adresu sousedního pole.
          */
     Field* nextField(Direction dir);
+
+    bool getGhost();
 };
 
 #endif

@@ -63,6 +63,12 @@ public:
          * @param col Pozice y políčka.
          * @return Vrátí instanci třídy políčko.
          */
+    int getRows(){
+        return this->rows;
+    }
+    int getCols(){
+        return this->cols;
+    }
     Field* getField(int row, int col);
 };
 
