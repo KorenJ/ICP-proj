@@ -79,7 +79,11 @@ public:
          * @return Vrátí adresu sousedního pole.
          */
     Field* nextField(Direction dir);
-
+    /**
+     * @brief todo
+     * 
+     * @return todo 
+     */
     bool getGhost();
 
 };

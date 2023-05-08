@@ -1,6 +1,6 @@
 /**
  * @file Field.cpp
- * @author your name (you@domain.com)
+ * @author Jakub Kořínek <xkorin17@stud.fit.vutbr>
  * @brief Implementace tříd reprezentující konkrétní políčko v bludišti.
  */
 
