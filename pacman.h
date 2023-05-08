@@ -7,6 +7,8 @@
 #include <QObject>
 #include <headers/MazeObject.hpp>
 #include <QTimer>
+#include <QMainWindow>
+#include <QLabel>
 
 class Pacman :public QObject, public QGraphicsItem //public MazeObject
 {
@@ -14,7 +16,13 @@ class Pacman :public QObject, public QGraphicsItem //public MazeObject
 public:
     MazeObject *pacmanMove;
     Maze * m_maze;
-    Pacman(MazeObject *pacman, Maze *maze, QTimer *mainTimer,  QGraphicsItem *parent = nullptr);
+    QTimer *m_timer;
+    QGraphicsScene *m_endScene;
+    QMainWindow *m_endWindow;
+    QLabel *endLabelLoose;
+    QLabel *endLabelWin;
+
+    Pacman(MazeObject *pacman, Maze *maze, QTimer *mainTimer, QGraphicsScene *endScene, QMainWindow *endWindow,  QGraphicsItem *parent = nullptr);
 
     QWidget *m_parentWidget;
     int quitNext = 0;

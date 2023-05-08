@@ -7,7 +7,6 @@
 #include <QTimer>
 #include <QPushButton>
 #include <QObject>
-#include "grid.h"
 #include "pacman.h"
 #include "ghost.h"
 #include "headers/Maze.hpp"
@@ -15,31 +14,72 @@
 #include <QDebug>
 #include <QPushButton>
 #include <QFile>
+#include "Log.h"
+#include "GridLog.h"
 #include "MazeButton.h"
 #include "qmainwindow.h"
 
 
 
-MazeButton::MazeButton(QGraphicsScene *scene, QTimer *timer, int xPos, int yPos, QMainWindow *win, QMainWindow *newWindow)
+MazeButton::MazeButton(QGraphicsScene *scene, QGraphicsScene *Logscene, int xPos, int yPos, QMainWindow *win, QMainWindow *newWindow, Log *mainLog)
 {
-    startGameButton = new QPushButton("Maze2");
+    logForwardButton = new QPushButton("Log>>");
+    logBackwardsButton = new QPushButton("Log<<");
     mainScene = scene;
-    connect(startGameButton, SIGNAL(clicked()), this, SLOT(buttonClicked()));
-    slotTimer = timer;
+    connect(logBackwardsButton, SIGNAL(clicked()), this, SLOT(backwardsButtonClicked()));
+    connect(logForwardButton, SIGNAL(clicked()), this, SLOT(buttonClicked()));
+    connect(&m_timer, SIGNAL(timeout()), this, SLOT(playLog()));
     positionx = xPos;
     positiony = yPos;
     windowMaze = win;
+    windowLog = newWindow;
+    logScene = Logscene;
+    m_log = mainLog;
 
 }
 
 void MazeButton::startMenu(){
 
-    startGameButton->setGeometry(positionx, positiony, 150, 50);
-    mainScene->addWidget(startGameButton);
+    logForwardButton->setGeometry(positionx, positiony, 150, 50);
+    logBackwardsButton->setGeometry(positionx, positiony + 70, 150, 50);
+    mainScene->addWidget(logForwardButton);
+    mainScene->addWidget(logBackwardsButton);
 }
 
 void MazeButton::buttonClicked(){
     windowMaze->close();
+    m_timer.start(1000);
+    windowLog->show();
+}
+
+void MazeButton::backwardsButtonClicked(){
+    windowMaze->close();
+    m_timer.start(1000);
+    forwardLog = false;
+    m_log->logIteration = m_log->countLogs();
+    windowLog->show();
+}
+
+void MazeButton::playLog(){
+    logScene->clear();
+    if(forwardLog){
+        if(m_log->readingLogFromStart == m_log->countLogs()){
+            m_timer.stop();
+        }
+        m_log->readSourceLog(m_log->readingLogFromStart);
+        GridLog *gridLog = new GridLog(m_log->m_maze);
+        logScene->addItem(gridLog);
+        m_log->readingLogFromStart++;
+    }
+    else{
+    if(m_log->logIteration == 0){
+        m_timer.stop();
+    }
+        m_log->readSourceLog(m_log->logIteration);
+        GridLog *gridLog = new GridLog(m_log->m_maze);
+        logScene->addItem(gridLog);
+        m_log->logIteration--;
+    }
 }
 
 bool MazeButton::getPressed(){

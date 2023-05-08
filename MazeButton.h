@@ -15,6 +15,7 @@
 #include <iostream>
 #include <fstream>
 #include <QGraphicsView>
+#include "Log.h"
 
 
 
@@ -24,14 +25,21 @@ public:
 
     int startGame();
     QGraphicsRectItem *blackRectangle;
-    QPushButton *startGameButton;
+    QPushButton *logForwardButton;
+    QPushButton *logBackwardsButton;
     QGraphicsScene *mainScene;
     QGraphicsView *mainView;
-    QGraphicsScene *gameScene;
+    QGraphicsScene *logScene;
     QGraphicsView *gameView;
     QTimer * slotTimer;
     QMainWindow *windowMaze;
-    QMainWindow *newWindowMaze;
+    QMainWindow *windowLog;
+
+    QTimer m_timer;
+
+    Log *m_log;
+
+    bool forwardLog = true;
 
     int positionx;
     int positiony;
@@ -39,10 +47,13 @@ public:
 
     bool getPressed();
 
-    MazeButton(QGraphicsScene *scene, QTimer *timer, int xPos, int yPos, QMainWindow *w, QMainWindow *newWindow);
+
+    MazeButton(QGraphicsScene *scene, QGraphicsScene * logScene, int xPos, int yPos, QMainWindow *w, QMainWindow *newWindow, Log *log);
     void startMenu();
 public slots:
     void buttonClicked();
+    void backwardsButtonClicked();
+    void playLog();
 private:
     std::ifstream file;
 };

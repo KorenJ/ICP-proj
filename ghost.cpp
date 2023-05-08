@@ -14,7 +14,7 @@ Ghost::Ghost(MazeObject* mazeGhost, Maze* maze, QTimer *mainTimer, int ghostOrde
 {
     m_mazeObject = mazeGhost;
     QPixmap pixmap("images/ghost.png");
-    setPixmap(pixmap.scaled(QSize(50,50), Qt::KeepAspectRatio));
+    setPixmap(pixmap.scaled(QSize(60, 60), Qt::KeepAspectRatio));
 
     // set up a timer to move the ghost every 500 milliseconds
     QTimer *m_timer = mainTimer;

@@ -13,6 +13,7 @@
 #include "MazeButton.h"
 #include <QFile>
 #include <QMainWindow>
+#include "Log.h"
 
 
 
@@ -30,6 +31,11 @@ int main(int argc, char *argv[])
     QGraphicsScene scene2;
     QGraphicsView view2(&scene2);
     window2.setCentralWidget(&view2);
+
+    QMainWindow endWindow;;
+    QGraphicsScene endScene;
+    QGraphicsView endView(&endScene);
+    endWindow.setCentralWidget(&endView);
 
     //opening new maze, we can add a switch that picks specific maze depending on the players choice
     /**
@@ -71,6 +77,7 @@ int main(int argc, char *argv[])
 
     QTimer commonTimer;
     commonTimer.stop();
+
 
     //initializing maze
     mazeFile->stopReading();
@@ -131,16 +138,22 @@ int main(int argc, char *argv[])
     }
 
     scene.setSceneRect(-50, -50, (rows+2)*50+200, (cols+2)*50);
+    scene2.setSceneRect(-50, -50, (rows+2)*50+200, (cols+2)*50);
 
 
-    mainMenu *menu = new mainMenu(&scene, &commonTimer, (rows+2)*50-20, 25);
+
+
+    mainMenu *menu = new mainMenu(&scene, &commonTimer, (rows+2)*50-20, 25, pacmanTmp);
     menu->startMenu();
 
-    MazeButton *mazeButton = new MazeButton(&scene, &commonTimer, (rows+2)*50-20, 100, &window, &window2);
+    Log *log = new Log(&maze, rows, cols, &commonTimer);
+
+    MazeButton *mazeButton = new MazeButton(&scene, &scene2, (rows+2)*50-20, 100, &window, &window2, log);
     mazeButton->startMenu();
 
     Grid grid(&maze);
     scene.addItem(&grid);
+
 
     Ghost ghostClass1(ghost1, &maze, &commonTimer, 1);
     ghostClass1.setPos((ghost1PosC * 50) - 50, (ghost1PosR * 50) - 50);
@@ -158,7 +171,7 @@ int main(int argc, char *argv[])
     ghostClass4.setPos((ghost4PosC * 50) - 50, (ghost4PosR * 50) - 50);
     scene.addItem(&ghostClass4);
 
-    Pacman pacman(pacmanTmp, &maze, &commonTimer);
+    Pacman pacman(pacmanTmp, &maze, &commonTimer, &endScene, &endWindow);
     pacman.setPos((setPosC * 50) - 50, (setPosR * 50) - 50);
     scene.addItem(&pacman);
 

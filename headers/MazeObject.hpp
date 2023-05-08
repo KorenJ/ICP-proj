@@ -27,6 +27,8 @@ private:
     int startCol;
 
 public:
+    int steps = 0;
+    bool isEnd = false;
     MazeObject(int row, int col, Maze *maze);
     /**
          * @brief Funkce zjistí, jestli je objekt Pacman.
@@ -107,6 +109,8 @@ public:
     int getRows();
 
     int getCols();
+
+    int get_steps();
 };
 
 #endif

@@ -25,14 +25,15 @@ protected:
     int row;
     int col;
     Maze *maze;
-    bool move;
 
+
+public:
+    bool move;
     MazeObject *pacman;
     MazeObject *ghost;
     MazeObject *key;
     MazeObject *target;
 
-public:
     Field(int row, int col, Maze *maze);
     /**
          * @brief Nastaví toto políčko jako cestu, po které se dá jít. (tedy ne zeď)
@@ -80,6 +81,7 @@ public:
     Field* nextField(Direction dir);
 
     bool getGhost();
+
 };
 
 #endif

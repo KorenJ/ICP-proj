@@ -4,10 +4,10 @@
 #include <QGraphicsItem>
 #include <headers/MazeObject.hpp>
 
-class Grid : public QGraphicsItem
+class GridLog : public QGraphicsItem
 {
 public:
-    Grid(Maze *maze, QGraphicsItem *parent = nullptr);
+    GridLog(Maze *maze, QGraphicsItem *parent = nullptr);
     Maze *mazeGrid;
     int rows;
     int cols;
@@ -15,7 +15,6 @@ public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    void paintLog(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 private:
     int m_cellSize;

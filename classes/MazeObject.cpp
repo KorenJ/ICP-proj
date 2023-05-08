@@ -94,7 +94,7 @@ bool MazeObject::move(Direction dir){
                 //... a v cíli je cíl -> jestli nemáš klíč, nesmíš jít, jinak konec hry
                 else if (nextObject->isTarget()){
                     if (this->hasKey()){
-                        std::cout << "KONEC HRY\n";
+                        this->isEnd = true;
                         nextField->remove(nextObject);
                         // úklid v paměti
                         delete nextObject;
@@ -164,4 +164,7 @@ int MazeObject::getRows()
 int MazeObject::getCols()
 {
     return this->col;
+}
+int MazeObject::get_steps(){
+    return this->steps;
 }

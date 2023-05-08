@@ -14,6 +14,9 @@
 #include <iostream>
 #include <fstream>
 #include <QGraphicsView>
+#include "Log.h"
+#include <QLabel>
+#include <QGraphicsProxyWidget>
 
 
 
@@ -21,6 +24,7 @@ class mainMenu :public QObject{
     Q_OBJECT
 public:
 
+    bool clickedOnce = false;
     int startGame();
     QGraphicsRectItem *blackRectangle;
     QPushButton *startGameButton;
@@ -29,6 +33,15 @@ public:
     QGraphicsScene *gameScene;
     QGraphicsView *gameView;
     QTimer * slotTimer;
+    Log * m_log;
+    QLabel *livesLabel;
+    QLabel *stepsLabel;
+    MazeObject *pacmanForLives;
+
+    QGraphicsProxyWidget* proxyWidget;
+
+    int currentLives;
+    int previousLives = 3;
 
     int positionx;
     int positiony;
@@ -36,10 +49,11 @@ public:
 
     bool getPressed();
 
-    mainMenu(QGraphicsScene *scene, QTimer *timer, int xPos, int yPos);
+    mainMenu(QGraphicsScene *scene, QTimer *timer, int xPos, int yPos, MazeObject * pacman);
     void startMenu();
 public slots:
     void buttonClicked();
+    void interactivesUpdate();
 private:
     std::ifstream file;
 };

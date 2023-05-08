@@ -7,20 +7,24 @@
 #include <headers/Field.hpp>
 #include <QDebug>
 #include <QTimer>
+#include <QMainWindow>
+#include <QLabel>
+#include <QGraphicsView>
 
-Pacman::Pacman(MazeObject *pacman, Maze *maze, QTimer *mainTimer, QGraphicsItem *parent) :QGraphicsItem(parent)
+Pacman::Pacman(MazeObject *pacman, Maze *maze, QTimer *mainTimer, QGraphicsScene *endScene, QMainWindow *endWindow, QGraphicsItem *parent) :QGraphicsItem(parent)
 {
     pacmanMove = pacman;
+    m_endScene = endScene;
+    m_endWindow = endWindow;
+    endLabelLoose = new QLabel("You have died,\n If you want to play again\n Restart the game");
+    endLabelWin = new QLabel("Good job You have Won,\n If you want to play again\n Restart the game");
     m_maze = maze;
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
-    QTimer *m_timer = mainTimer;
+    m_timer = mainTimer;
     connect(m_timer, SIGNAL(timeout()), this, SLOT(move()));
     rows = maze->getRows() - 2;
     //m_parentWidget = parentOb;
-    if(m_parentWidget != nullptr){
-    m_parentWidget->installEventFilter(this);
-    }
     cols = maze->getCols() - 2;
 }
 
@@ -51,9 +55,21 @@ void Pacman::paintPacman(MazeObject *pacman){
 }
 
 void Pacman::move(){
+    pacmanMove->steps++;
     setFocus();
     if(pacmanMove->get_lives() == 0){
-        QApplication::quit();
+        m_timer->stop();
+        endLabelLoose->setFixedSize(300, 300);
+        endLabelLoose->move(0, +200);
+        m_endScene->addWidget(endLabelLoose);
+        m_endWindow->show();
+    }
+    if(pacmanMove->isEnd){
+        m_timer->stop();
+        endLabelWin->setFixedSize(300, 300);
+        endLabelWin->move(0, +200);
+        m_endScene->addWidget(endLabelWin);
+        m_endWindow->show();
     }
     int x = pos().x() / m_step;
     int y = pos().y() / m_step;

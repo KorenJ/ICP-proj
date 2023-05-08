@@ -1,24 +1,29 @@
-#ifndef GRID_H
-#define GRID_H
+#ifndef GRIDLOG_H
+#define GRIDLOG_H
 
+#include <iostream>
+#include <fstream>
 #include <QGraphicsItem>
 #include <headers/MazeObject.hpp>
 
-class Grid : public QGraphicsItem
+class GridLog : public QGraphicsItem
 {
 public:
-    Grid(Maze *maze, QGraphicsItem *parent = nullptr);
+    GridLog(Maze *maze, QGraphicsItem *parent = nullptr);
     Maze *mazeGrid;
     int rows;
     int cols;
+    int logfilesCount;
+    std::ifstream file;
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    void paintLog(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    int readMaze();
+
 
 private:
     int m_cellSize;
 };
 
-#endif // GRID_H
+#endif // GRIDLOG_H

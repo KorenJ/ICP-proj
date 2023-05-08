@@ -11,6 +11,8 @@ QMAKE_CXXFLAGS += -std=c++11
 
 
 SOURCES += \
+    GridLog.cpp \
+    Log.cpp \
     MazeButton.cpp \
     classes/Field.cpp \
     classes/Maze.cpp \
@@ -23,6 +25,8 @@ SOURCES += \
 
 
 HEADERS += \
+    GridLog.h \
+    Log.h \
     MazeButton.h \
     ghost.h \
     grid.h \
