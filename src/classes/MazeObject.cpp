@@ -1,3 +1,9 @@
+/**
+ * @file MazeObject.cpp
+ * @author Jakub Kořínek xkorin17@stud.fit.vutbr.cz
+ * @brief This file implements MazeObject class.
+ */
+
 #include "../headers/MazeObject.hpp"
 
 MazeObject::MazeObject(int row, int col, Maze *maze){

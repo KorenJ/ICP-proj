@@ -1,7 +1,7 @@
 /**
  * @file Field.cpp
- * @author your name (you@domain.com)
- * @brief Implementace tříd reprezentující konkrétní políčko v bludišti.
+ * @author Jakub Kořínek xkorin17@stud.fit.vutbr.cz
+ * @brief Implementation of a field in maze.
  */
 
 #include "../headers/Field.hpp"
@@ -23,7 +23,6 @@ void Field::setPath(){
 }
 
 bool Field::canMove(){
-    // na toto políčko se dá pohnout pouze, pokud je to cesta a zároveň tam nejsou už duch s pacmanem
     return this->move && (this->ghost == nullptr || this->pacman == nullptr);
 }
 

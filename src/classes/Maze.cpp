@@ -1,7 +1,7 @@
 /**
  * @file Maze.cpp
  * @author Jakub Kořínek <xkorin17@stud.fit.vutbr.cz>
- * @brief Implementace třídy Maze.
+ * @brief Implementation of maze class.
  */
 
 #include "../headers/MazeObject.hpp"

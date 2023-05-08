@@ -1,7 +1,7 @@
 /**
  * @file Field.hpp
  * @author Jakub Kořínek <xkorin17@stud.fit.vutbr.cz>
- * @brief Hlavičkový soubor definující třídy Field a Direction. Field reprezentuje pole bludiště a Direction směry.
+ * @brief Header file defining class Field and enum class Direction.
  *
  */
 
@@ -9,6 +9,11 @@
 #define FIELD_H
 
 class Field;
+/**
+ * @class Direction
+ * @brief Enum class defining usable directions. 
+ * 
+ */
 enum class Direction{
     D,
     L,
@@ -20,6 +25,11 @@ enum class Direction{
 #include "MazeObject.hpp"
 #include "Maze.hpp"
 
+/**
+ * @class Field
+ * @brief A class defining a field in maze.
+ * 
+ */
 class Field{
 protected:
     int row;
@@ -36,52 +46,56 @@ public:
 
     Field(int row, int col, Maze *maze);
     /**
-         * @brief Nastaví toto políčko jako cestu, po které se dá jít. (tedy ne zeď)
+         * @brief Sets field as path.
          *
          */
     void setPath();
     /**
-         * @brief Funkce rozlišuje zeď od cesty.
+         * @brief THis function makes a difference between wall and path.
          *
-         * @return Vrátí true, pokud se jedná o cestu. V případě zdi vrací False.
+         * @return Returns true if this is a path. False otherwise.
          */
     bool canMove();
     /**
-         * @brief Funkce zjistí, jestli je políčko prázdné.
+         * @brief Finds out whether this field is empty.
          *
-         * @return Vrátí true, pokud políčko neobsahuje žádný objekt třídy MazeObject. Jinak false.
+         * @return Returns true if field has no object on it.
          */
     bool isEmpty();
     /**
-         * @brief Funkce umístí požadovaný objekt na políčko.
+         * @brief Function assigns object to this field..
          *
-         * @param object Instance třídy MazeObject.
-         * @return Vrátí true po úspěšném zapsání adresy objektu do políčka. Jakýkoliv jiný případ je false.
+         * @param object MazeObject.
+         * @return If put is successful, return true. False otherwise.
          */
     bool put(MazeObject *object);
     /**
-         * @brief Odstraní požadovaný objekt z políčka.
+         * @brief Removes object from field.
          *
-         * @param object Instance třídy MazeObject.
-         * @return Vrátí true, pokud na původním políčku již neexistuje adresa dané instance. Jinak false.
+         * @param object MazeObject.
+         * @return Return true if remove is successful. False otherwise.
          */
     bool remove(MazeObject *object);
     /**
-         * @brief Funkce získá objekt na políčku. Hledá je postupně v tomto pořadí: 1) Pacman 2) Duch 3) Klíč 4) Cíl.
+         * @brief Function gets adress of Mazeobject on this field.
          *
-         * @return Vrací adresu prvního získaného objektu. Pokud je pole prázdné, vrací nullptr(!).
+         * @return Returns the adress of first MazeObject.
          */
     MazeObject* get();
     /**
-         * @brief Funkce vrátí adresu sousedního políčka.
+         * @brief Returns adress of neighbouring field.
          *
-         * @param dir Směr požadovaného souseda.
-         * @return Vrátí adresu sousedního pole.
+         * @param dir Direction.
+         * @return Returns the adress of neighbouring field.
          */
     Field* nextField(Direction dir);
 
+     /**
+      * @brief Get the ghost object.
+      * 
+      * @return Return true if it gets ghost successfully.
+      */
     bool getGhost();
-
 };
 
 #endif

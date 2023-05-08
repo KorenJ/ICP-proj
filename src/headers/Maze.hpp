@@ -1,7 +1,7 @@
 /**
  * @file Maze.hpp
  * @author Jakub Kořínek <xkorin17@stud.fit.vutbr.cz>
- * @brief Hlavičkový soubor pro definici třídy reprezentující celé bludiště.
+ * @brief Header file defining the whole maze.
  */
 
 #ifndef MAZE_H
@@ -12,10 +12,15 @@
 #include <iostream>
 #include "Field.hpp"
 
+/**
+ * @class Maze
+ * @brief Class representing the whole maze.
+ * 
+ */
 class Maze{
 protected:
     /**
-         * @brief Samotné bludiště je uloženo jako matice pointerů, na které se naváží konkrétní instance políček.
+         * Maze itself is saved is matrix of pointers, to each pointer you can assign a field.
          *
          */
     Field ***field;
@@ -25,50 +30,60 @@ protected:
 
 public:
     /**
-         * @brief Funkce alokuje potřebnou pamět pro zadané rozměry a naplní první řádek zdmi.
+         * @brief Function allocates necessary memory and fills the first line with walls.
          *
-         * @param rows Požadovaný počet řádků.
-         * @param cols Požadovaný počet sloupců.
-         * @return Vrací true při úspěchu, jinak false.
+         * @param rows Required number of rows.
+         * @param cols Required number of cols.
+         * @return True if successful.
          */
     bool startReading(int rows, int cols);
     /**
-         * @brief Funkce zpracuje celý řádek.
+         * @brief Function processes new line.
          *
-         * @param line Řádek reprezentovaný stringem.
-         * @return Vrací true při úspěchu, jinak false.
+         * @param line String representation of a line.
+         * @return True if successful.
          */
     bool processLine(std::string line);
     /**
-         * @brief Funkce ukončí načítání mapy a naplní poslední řádek zdmi.
+         * @brief Function ends reading and fill the last row with walls.
          *
-         * @return Vrací true při úspěchu, jinak false.
+         * @return True if successful.
          */
     bool stopReading();
     /**
-         * @brief Funkce vrátí sama sebe jako načtenou mapu.
+         * @brief Function creates ready maze.
          *
-         * @return Instance třídy bludiště.
+         * @return Instance of maze.
          */
     Maze createMaze();
     /**
-         * @brief Uklidí alokovanou pamět.
+         * @brief Releases allocated memory.
          *
          */
     void clearMaze();
     /**
-         * @brief Funkce načítá konkrétní pole ze souřadnic.
-         *
-         * @param row Pozice x políčka.
-         * @param col Pozice y políčka.
-         * @return Vrátí instanci třídy políčko.
-         */
+     * @brief Get the number of rows
+     * 
+     * @return returns number of rows
+     */
     int getRows(){
         return this->rows;
     }
+    /**
+     * @brief Get the number of cols
+     * 
+     * @return returns number of cols
+     */
     int getCols(){
         return this->cols;
     }
+    /**
+         * @brief Function loads the adress of particular field.
+         *
+         * @param row X position
+         * @param col Y position
+         * @return Returns the adress of a Field[x,y].
+         */
     Field* getField(int row, int col);
 };
 

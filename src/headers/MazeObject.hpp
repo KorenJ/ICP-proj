@@ -1,7 +1,7 @@
 /**
  * @file MazeObject.hpp
  * @author Jakub Kořínek <xkorin17@stud.fit.vutbr>
- * @brief Hlavičkový soubor pro definici třídy MazeObject reprezentující libovolnou postavu hry.
+ * @brief Header file defining playable objects of maze.
  */
 
 #ifndef MAZEOBJECT_H
@@ -12,6 +12,11 @@ class MazeObject;
 #include "Field.hpp"
 #include "Maze.hpp"
 
+/**
+ * @class MazeObject
+ * @brief class defining playable objects of maze.
+ * 
+ */
 class MazeObject{
 private:
     int row;
@@ -31,85 +36,101 @@ public:
     bool isEnd = false;
     MazeObject(int row, int col, Maze *maze);
     /**
-         * @brief Funkce zjistí, jestli je objekt Pacman.
+         * @brief Function tells if this object is pacman.
          *
-         * @return Vrací true, pokud je objekt pacman, jinak false.
+         * @return Return true, if this object is pacman.
          */
     bool isPacman();
     /**
-         * @brief Funkce zjistí, jestli je objekt ghost.
+         * @brief Function tells if this object is ghost.
          *
-         * @return Vrací true, pokud je objekt ghost, jinak false.
+         * @return Return true, if this object is ghost.
          */
     bool isGhost();
-    /**
-         * @brief Funkce zjistí, jestli je objekt klíč.
+     /**
+         * @brief Function tells if this object is key.
          *
-         * @return Vrací true, pokud je objekt klíč, jinak false.
+         * @return Return true, if this object is key.
          */
     bool isKey();
     /**
-         * @brief Funkce zjistí, jestli je objekt cíl.
+         * @brief Function tells if this object is target.
          *
-         * @return Vrací true, pokud je objekt cíl, jinak false.
+         * @return Return true, if this object is target.
          */
     bool isTarget();
     /**
-         * @brief Nastaví objekt jako pacmana.
+         * @brief Sets this object as pacman.
          *
          */
     void setPacman();
     /**
-         * @brief Nastaví objekt jako ducha.
+         * @brief Sets this object as ghost.
          *
          */
     void setGhost();
     /**
-         * @brief Nastaví objekt jako klíč.
+         * @brief Sets this object as key.
          *
          */
     void setKey();
     /**
-         * @brief Nastaví objekt jako cíl.
+         * @brief Sets this object as target.
          *
          */
     void setTarget();
     /**
-         * @brief Funkce zjistí, jestli se může objekt pohnout daným směrem dir. Je třeba zadávat jako Direction::<směr>.
+         * @brief Function tells whether object can move to neighbouring Field.
          *
-         * @param dir Směr žádaného pohybu.
-         * @return Vrátí true, pokud se objekt může posunout daným směrem. Jinak false.
+         * @param dir Direction.
+         * @return Returns true if object can move.
          */
     bool canMove(Direction dir);
     /**
-         * @brief Funkce zkopíruje adresu své vlastní instance na sousední políčko ve směru dir a smaže odkaz na původním.
+         * @brief Moves this object to neighbouring field.
          *
-         * @param dir Směr žádaného pohybu.
-         * @return Vrátí true po úspěšném přesunu. Jakýkoliv jiný případ vrátí false.
+         * @param dir Direction.
+         * @return Returns true if object moved successfully.
          */
     bool move(Direction dir);
     /**
-         * @brief Ubere objektu (Musí být kontrola na Pacmana) jeden život.
+         * @brief Damages this object (lowers the number of lives).
          *
          */
     void damage();
     /**
-         * @brief Vrátí počet životů objektu (musí být kontrola na Pacmana).
+         * @brief Function get the number of lives left.
          *
+         * @return Number of lives.
          */
     int get_lives();
 
     /**
-         * @brief Funkce zkontroluje vlastnictví klíče.
+         * @brief Function controls whether pacman picked key.
          *
-         * @return Vráci true, pokud má objekt (Pacman) klíč. Jinak false.
+         * @return Return true, if this object has a key.
          */
     bool hasKey();
 
+     /**
+      * @brief Get the row count
+      * 
+      * @return rows
+      */
     int getRows();
 
+     /**
+      * @brief Get the col count
+      * 
+      * @return cols
+      */
     int getCols();
 
+    /**
+     * @brief Get the number of steps taken
+     * 
+     * @return steps
+     */
     int get_steps();
 };
 
