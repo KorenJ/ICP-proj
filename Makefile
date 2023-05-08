@@ -50,6 +50,7 @@ STRIP         = strip
 OBJECTS_DIR   = ./
 
 ####### Files
+DOXYFILE = 	$(DOCDIR)/Doxyfile
 
 SOURCES       = GridLog.cpp \
 		Log.cpp \
@@ -680,10 +681,16 @@ distdir: FORCE
 	$(COPY_FILE) --parents GridLog.h Log.h MazeButton.h ghost.h grid.h headers/Field.hpp headers/Maze.hpp headers/MazeObject.hpp mainMenu.h pacman.h $(DISTDIR)/
 	$(COPY_FILE) --parents GridLog.cpp Log.cpp MazeButton.cpp classes/Field.cpp classes/Maze.cpp classes/MazeObject.cpp ghost.cpp grid.cpp main.cpp mainMenu.cpp pacman.cpp $(DISTDIR)/
 
+doxygen:
+	doxygen Doxyfile
+
+run:
+	./pacman
 
 clean: compiler_clean 
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
+	rm -rf html latex
 
 
 distclean: clean 

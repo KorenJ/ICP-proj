@@ -1,9 +1,3 @@
-/**
- * @file MazeObject.cpp
- * @author Jakub Kořínek <xkorin17@stud.fit.vutbr>
- * @brief Implementace hratelných prvků pole.
- */
-
 #include "../headers/MazeObject.hpp"
 
 MazeObject::MazeObject(int row, int col, Maze *maze){

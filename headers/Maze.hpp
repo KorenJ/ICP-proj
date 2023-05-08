@@ -15,9 +15,9 @@
 class Maze{
 protected:
     /**
-     * @brief Samotné bludiště je uloženo jako matice pointerů, na které se naváží konkrétní instance políček.
-     *
-     */
+         * @brief Samotné bludiště je uloženo jako matice pointerů, na které se naváží konkrétní instance políček.
+         *
+         */
     Field ***field;
     int rows;
     int cols;
@@ -25,60 +25,50 @@ protected:
 
 public:
     /**
-     * @brief Funkce alokuje potřebnou pamět pro zadané rozměry a naplní první řádek zdmi.
-     *
-     * @param rows Požadovaný počet řádků.
-     * @param cols Požadovaný počet sloupců.
-     * @return Vrací true při úspěchu, jinak false.
-     */
+         * @brief Funkce alokuje potřebnou pamět pro zadané rozměry a naplní první řádek zdmi.
+         *
+         * @param rows Požadovaný počet řádků.
+         * @param cols Požadovaný počet sloupců.
+         * @return Vrací true při úspěchu, jinak false.
+         */
     bool startReading(int rows, int cols);
     /**
-     * @brief Funkce zpracuje celý řádek.
-     *
-     * @param line Řádek reprezentovaný stringem.
-     * @return Vrací true při úspěchu, jinak false.
-     */
+         * @brief Funkce zpracuje celý řádek.
+         *
+         * @param line Řádek reprezentovaný stringem.
+         * @return Vrací true při úspěchu, jinak false.
+         */
     bool processLine(std::string line);
     /**
-     * @brief Funkce ukončí načítání mapy a naplní poslední řádek zdmi.
-     *
-     * @return Vrací true při úspěchu, jinak false.
-     */
+         * @brief Funkce ukončí načítání mapy a naplní poslední řádek zdmi.
+         *
+         * @return Vrací true při úspěchu, jinak false.
+         */
     bool stopReading();
     /**
-     * @brief Funkce vrátí sama sebe jako načtenou mapu.
-     *
-     * @return Instance třídy bludiště.
-     */
+         * @brief Funkce vrátí sama sebe jako načtenou mapu.
+         *
+         * @return Instance třídy bludiště.
+         */
     Maze createMaze();
     /**
-     * @brief Uklidí alokovanou pamět.
-     *
-     */
+         * @brief Uklidí alokovanou pamět.
+         *
+         */
     void clearMaze();
     /**
-     * @brief Funkce zjistí počet řádků pole.
-     * 
-     * @return Vrací počet řádků.
-     */
+         * @brief Funkce načítá konkrétní pole ze souřadnic.
+         *
+         * @param row Pozice x políčka.
+         * @param col Pozice y políčka.
+         * @return Vrátí instanci třídy políčko.
+         */
     int getRows(){
         return this->rows;
     }
-    /**
-     * @brief Funkce zjistí počet sloupců pole.
-     * 
-     * @return Vrací počet sloupců.
-     */
     int getCols(){
         return this->cols;
     }
-    /**
-     * @brief Funkce načítá konkrétní pole ze souřadnic.
-     *
-     * @param row Pozice x políčka.
-     * @param col Pozice y políčka.
-     * @return Vrátí instanci třídy políčko.
-     */
     Field* getField(int row, int col);
 };
 
